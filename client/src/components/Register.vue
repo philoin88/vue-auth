@@ -73,25 +73,25 @@ export default {
   },
 
   methods: {
-    handleSubmit() {
-      let url = `http://localhost:3000/api/auth/register`;
+    async handleSubmit() {
+      const url = `/api/auth/register`;
       const data = {
+        email: this.email,
+        password: this.password,
         firstName: this.firstName,
         lastName: this.lastName,
-        password: this.password,
-        confirmPassword: this.confirmPassword,
-        email: this.email,
-      }
+      };
       console.log('data', data);
 
-      axios.post(url, data)
-        .then(res => {
-          console.log('res', res);
+      try {
+        let res = await axios.post(url, data);
+        let resData = res.data;
+        console.log('resData', resData);
 
-        })
-        .catch(err => {
-          console.log('handleSubmit() - err', err);
-        })
+        this.$router.push('/login');
+      } catch (err) {
+        console.log('handleSubmit() - err', err);
+      }
     },
   },
 };
