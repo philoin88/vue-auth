@@ -74,7 +74,7 @@ export default {
 
   methods: {
     handleSubmit() {
-      let url = 'http://localhost:3000/register';
+      let url = `http://localhost:3000/api/auth/register`;
       const data = {
         firstName: this.firstName,
         lastName: this.lastName,
