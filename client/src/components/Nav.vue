@@ -1,29 +1,33 @@
 <template>
   <nav class="navbar navbar-expand navbar-light fixed-top">
-      <div class="container">
-        <a href="#" class="navbar-brand">Home</a>
+    <div class="container">
+      <router-link class="navbar-brand" to="/">
+        Home
+      </router-link>
 
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="#" class="nav-link">Login</a>
-            </li>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/login">
+              Login
+            </router-link>
+          </li>
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">Sign up</a>
-            </li>
-          </ul>
-        </div>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/register">
+              Sign up
+            </router-link>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
-  name: 'Nav'
-}
+  name: 'Nav',
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
