@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const checkAuth = require('../utils/checkAuth');
 
 /**
  * @desc    회원 가입
@@ -11,12 +12,14 @@ router.post('/register', async (req, res) => {
   try {
     let { email, password, firstName, lastName } = req.body;
     let newUser = { email, password, firstName, lastName };
-    let result = await User.create(newUser);
+    let user = await User.create(newUser);
+    let token = user.getJwtToken();
 
     res.json({
-      isSuccess: true,
+      user,
+      token,
       message: 'User created successfully.',
-      result,
+      isSuccess: true,
     });
   } catch (err) {
     console.log('/register - err', err);
@@ -53,13 +56,39 @@ router.post('/login', async (req, res) => {
         isSuccess: true,
       });
     } else {
-      throw { message: 'There\'s no user with this email.' };
+      throw { message: 'Email or Password is not matched.' };
     }
   } catch (err) {
     console.log(`${req.method} ${req.originalUrl} - err`, err);
 
     res.json({
       message: err.message,
+      isSuccess: false,
+    });
+  }
+});
+
+/**
+ * @desc    유저 정보 불러오기
+ * @access  Public
+ * @author  Robin
+ */
+router.post('/user', checkAuth, async (req, res) => {
+  try {
+    let _id = req.user._id
+    let user = await User.findOne({ _id });
+  
+    res.json({
+      user,
+      message: 'Find the user successfully.',
+      isSuccess: true,
+    });
+
+  } catch (err) {
+    console.log(`${req.method} ${req.originalUrl} - err`, err);
+
+    res.json({
+      message: 'Failed to find the user.',
       isSuccess: false,
     });
   }

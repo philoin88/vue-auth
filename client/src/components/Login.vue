@@ -49,17 +49,17 @@ export default {
       console.log('data', data);
 
       try {
-        let res = await axios.post(url, data);
-        let resData = res.data;
-        console.log('resData', resData);
-
-        let isSuccess = resData.isSuccess
+        const res = await axios.post(url, data);
+        const { token, message, isSuccess } = res.data;
+        
         if (isSuccess) {
-          this.$router.push('/home');
-
-        } else {
-          this.common.showToast({ message: 'No user with this email.' })
+          console.log('token', token);
+          localStorage.setItem('token', token);
+          // this.$store.commit('setUser', user);
+          this.$router.push('/');
         }
+
+        this.common.showToast({ message })
 
       } catch (err) {
         console.log('handleSubmit() - err', err);

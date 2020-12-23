@@ -20,7 +20,9 @@ app.use(morgan('common'));
 
 // Routes 설정
 const auth = require('./routes/auth.js');
+const users = require('./routes/users.js');
 app.use('/api/auth', auth)
+app.use('/api/users', users)
 
 // 서버 실행
 app.listen(port, () => console.log(`${port} is connected!`))

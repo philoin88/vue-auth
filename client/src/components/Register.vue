@@ -85,10 +85,14 @@ export default {
 
       try {
         let res = await axios.post(url, data);
-        let resData = res.data;
-        console.log('resData', resData);
+        let { message, isSuccess } = res.data;
+        
+        if (isSuccess) {
+          this.$router.push('/login');
+        }
 
-        this.$router.push('/login');
+        this.common.showToast({ message })
+
       } catch (err) {
         console.log('handleSubmit() - err', err);
       }
