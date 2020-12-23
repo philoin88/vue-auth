@@ -7,14 +7,17 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
 
-  computed: {
-    ...mapState([ 'user' ]),
+  data() {
+    return {
+      user: null,
+    };
+  },
 
+  computed: {
     userName() {
       if (this.user) return `${this.user.firstName} ${this.user.lastName}`;
       return 'Guest';
@@ -27,20 +30,16 @@ export default {
 
   methods: {
     async getUser() {
-      if (this.user) {
-        const url = `/api/auth/user`
-        const res = await axios.get(url);
-        const { user, message, isSuccess } = res.data;
-  
-        if (isSuccess) {
-          this.user = user;
-          console.log('user', user);
-        }
-  
-        this.common.showToast({ message });
-      } else {
-        this.$router.push('/login')
+      const url = `/api/auth/user`;
+      const res = await axios.get(url);
+      const { user, message, isSuccess } = res.data;
+
+      if (isSuccess) {
+        this.user = user;
+        console.log('user', user);
       }
+
+      this.common.showToast({ message });
     },
   },
 };

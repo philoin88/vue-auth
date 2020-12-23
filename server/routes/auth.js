@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
  * @access  Public
  * @author  Robin
  */
-router.post('/user', checkAuth, async (req, res) => {
+router.get('/user', checkAuth, async (req, res) => {
   try {
     let _id = req.user._id
     let user = await User.findOne({ _id });

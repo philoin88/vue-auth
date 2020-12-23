@@ -23,7 +23,7 @@ const checkAuth = (req, res, next) => {
     next();
   } else {
     res.status(400).json({
-      message: '접근할 수 없는 경로입니다.',
+      message: 'Not Authenticated.',
       isSuccess: false,
     });
   }

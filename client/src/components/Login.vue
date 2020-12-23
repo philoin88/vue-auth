@@ -50,12 +50,11 @@ export default {
 
       try {
         const res = await axios.post(url, data);
-        const { user, token, message, isSuccess } = res.data;
+        const { token, message, isSuccess } = res.data;
         
         if (isSuccess) {
           console.log('token', token);
           localStorage.setItem('token', token);
-          this.$store.commit('setUser', user);
           this.$router.push('/');
         }
 
