@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Nav />
+    <Toast />
 
     <div class="auth-wrapper">
       <div class="auth-inner">
@@ -12,11 +13,13 @@
 
 <script>
 import Nav from './components/Nav.vue';
+import Toast from './components/Toast.vue';
 
 export default {
   name: 'App',
   components: {
     Nav,
+    Toast,
   },
 };
 </script>

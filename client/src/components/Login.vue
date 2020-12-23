@@ -53,7 +53,14 @@ export default {
         let resData = res.data;
         console.log('resData', resData);
 
-        this.$router.push('/home');
+        let isSuccess = resData.isSuccess
+        if (isSuccess) {
+          this.$router.push('/home');
+
+        } else {
+          this.common.showToast({ message: 'No user with this email.' })
+        }
+
       } catch (err) {
         console.log('handleSubmit() - err', err);
       }
