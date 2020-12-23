@@ -1,25 +1,53 @@
 <template>
   <div id="app">
-    <Nav />
+    <Nav :user="user" />
     <Toast />
 
     <div class="auth-wrapper">
       <div class="auth-inner">
-        <router-view />
+        <router-view :user="user" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import Nav from './components/Nav.vue';
 import Toast from './components/Toast.vue';
 
 export default {
   name: 'App',
+
   components: {
     Nav,
     Toast,
+  },
+  
+  data() {
+    return {
+      user: null,
+    };
+  },
+
+
+  async created() {
+    await this.getUser();
+  },
+
+  methods: {
+    async getUser() {
+      const url = `/api/auth/user`;
+      const res = await axios.get(url);
+      const { user, message, isSuccess } = res.data;
+
+      if (isSuccess) {
+        this.user = user;
+        console.log('user', user);
+      }
+
+      this.common.showToast({ message });
+    },
   },
 };
 </script>
