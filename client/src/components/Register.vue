@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="register">
     <h3>Sign Up</h3>
 
     <div class="form-group">
@@ -73,7 +73,7 @@ export default {
   },
 
   methods: {
-    async handleSubmit() {
+    async register() {
       const url = `/api/auth/register`;
       const data = {
         email: this.email,
@@ -94,7 +94,7 @@ export default {
         this.common.showToast({ message })
 
       } catch (err) {
-        console.log('handleSubmit() - err', err);
+        console.log('register() - err', err);
       }
     },
   },

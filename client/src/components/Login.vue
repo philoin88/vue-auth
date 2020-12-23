@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="login">
     <h3>Login</h3>
 
     <div class="form-group">
@@ -40,7 +40,7 @@ export default {
   },
 
   methods: {
-    async handleSubmit() {
+    async login() {
       const url = `/api/auth/login`;
       const data = {
         email: this.email,
@@ -50,18 +50,19 @@ export default {
 
       try {
         const res = await axios.post(url, data);
-        const { token, message, isSuccess } = res.data;
+        const { user, token, message, isSuccess } = res.data;
         
         if (isSuccess) {
           console.log('token', token);
           localStorage.setItem('token', token);
+          this.$store.dispatch('setUser', user);
           this.$router.push('/');
         }
 
         this.common.showToast({ message })
 
       } catch (err) {
-        console.log('handleSubmit() - err', err);
+        console.log('login() - err', err);
       }
     },
   },

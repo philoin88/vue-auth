@@ -8,17 +8,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'Home',
 
-  props: {
-    user: {
-      type: Object,
-      default: null
-    },
-  },
-
   computed: {
+    ...mapState(['user']),
+
     userName() {
       if (this.user) return `${this.user.firstName} ${this.user.lastName}`;
       return 'Guest';

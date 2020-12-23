@@ -21,7 +21,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto" v-else>
-          <li class="nav-item" style="cursor: pointer;" @click="handleClick">
+          <li class="nav-item" style="cursor: pointer;" @click="logout">
             Logout
           </li>
         </ul>
@@ -31,20 +31,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Nav',
-  
-  props: {
-    user: {
-      type: Object,
-      default: null
-    },
+
+  computed: {
+    ...mapState(['user'])
   },
 
   methods: {
-    handleClick() {
+    logout() {
       localStorage.removeItem('token');
-      this.$router.push('/')
+      this.$store.dispatch('setUser', null);
+      if (this.$route.path !== '/') this.$router.push('/');
     }
   },
 };

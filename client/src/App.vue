@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Nav :user="user" />
+    <Nav />
     <Toast />
 
     <div class="auth-wrapper">
       <div class="auth-inner">
-        <router-view :user="user" />
+        <router-view />
       </div>
     </div>
   </div>
@@ -23,13 +23,6 @@ export default {
     Nav,
     Toast,
   },
-  
-  data() {
-    return {
-      user: null,
-    };
-  },
-
 
   async created() {
     await this.getUser();
@@ -42,8 +35,7 @@ export default {
       const { user, message, isSuccess } = res.data;
 
       if (isSuccess) {
-        this.user = user;
-        console.log('user', user);
+        this.$store.dispatch('setUser', user);
       }
 
       this.common.showToast({ message });
