@@ -23,6 +23,10 @@
     </div>
 
     <button class="btn btn-primary btn-block">Login</button>
+
+    <div class="forgot-password text-right">
+      <router-link to="forgot">Forgot Password?</router-link>
+    </div>
   </form>
 </template>
 
